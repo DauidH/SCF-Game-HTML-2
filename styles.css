@@ -1,0 +1,340 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap');
+
+body {
+    font-family: 'Cinzel', serif;
+    background-color: #DAC0A3;
+    align-content: space-between;
+    background-image: url("https://2.bp.blogspot.com/-N67f-YO7wzs/UYl97ea-78I/AAAAAAAAGG0/OELmKh-Bem0/s1600/eET8MpF.gif") !important;
+    background-repeat: repeat;
+    background-size: 112%; 
+}
+
+#seleccionar-mascota {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo {
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo img {
+    width: 295px;
+}
+
+.subtitulo {
+    color: #EADBC8;
+    margin-bottom: 25px;
+}
+
+.tarjetas, .botones {
+    display: flex;
+    gap: 10px;
+    border-radius: 20px;
+}
+
+.tarjeta-de-mokepon {
+    width: 180px;
+    height: 300px;
+/*     background: rgba(94, 72, 45, 0.9); */
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    display: flex;
+    color: #F8F0E5;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    margin: 0px;
+}
+
+#tarjeta-gatung-fu img {
+    height: 212px;
+    width: 152px;
+}
+
+#tarjeta-sheriff-cat img {
+    height: 227px;
+    width:173.08px;
+}
+
+#tarjeta-cat-sparrow img {
+    height: 235px;
+    width: 150px;
+}
+
+#tarjeta-gathofen img {
+    height: 225px;
+    width: 121px;
+}
+
+#tarjeta-catminator img {
+    height: 211px;
+    width: 151px;
+}
+
+#tarjeta-catkingo img {
+    height: 211px;
+    width: 151px;
+}
+
+#boton-mascota {
+    background-color: rgba(66, 62, 39, 0.1);
+    font-family: 'Cinzel', sans-serif;
+    color: white;
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 30px 0px 15px 0px;
+}
+
+button:hover {
+    background: #785f43;
+    color: #ffffff;
+    box-shadow: 0px 0px 5px 0px #ffffff;
+}
+
+input {
+    display: none;
+}
+
+input:hover+label {
+    background: linear-gradient(0deg,rgba(143, 1, 1, 0.531),#ffffff00);
+    color: #ffffff;
+    font-size: larger;
+}
+
+input:checked+label {
+    background: linear-gradient(0deg,rgb(0, 0, 0),rgba(143, 1, 1, 0.531));
+    color: #ffffff;
+    box-shadow: 0px 0px 20px 0px #ffffff;
+    font-size: larger;
+    border: 4px solid rgba(255, 255, 255, 0.7);
+}
+
+#seleccionar-ataque {
+    flex-direction: column;
+    align-items: center;
+}
+
+.boton-de-ataque {
+    background-color: rgba(66, 62, 39, 0.9);
+    font-family: 'Cinzel', sans-serif;
+    color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 20px;
+}
+
+#messages {
+    color:white;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    width: 339px;
+    height: 193px;
+    margin-top: 20px;
+    border-radius: 20px;
+    z-index: 19;
+}
+
+.ataques {
+    display: flex;
+    gap: 3px;
+}
+
+#ataques-del-jugador {
+    display: flex;
+    width: 87px;
+    background-color: rgb(58 58 58 / 100%);
+    padding: 4px;
+    margin-top: 20px;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+#vs {
+    display: flex;
+    width: 0px;
+    height: 0px;
+    background-color: rgb(58 58 58 / 100%);
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#ataques-del-enemigo {
+    display: flex;
+    width: 87px;
+    background-color: rgb(58 58 58 / 100%);
+    padding: 4px;
+    margin-top: 20px;
+    border-radius: 20px;
+    justify-content: center;
+}
+
+#g {
+    margin-bottom: 0px;
+}
+
+#mensajes {
+    width: 180px;
+    background-color: rgb(58 58 58 / 100%);
+    padding: 20px;
+    margin-top: -7px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#mensaje-final {
+    width: 180px;
+    background: linear-gradient(0deg, rgb(0, 0, 0), rgba(143, 1, 1, 0.53));
+    padding: 20px;
+    margin-top: -65px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    text-align: center;
+    z-index: 19;
+    border: 4px solid rgba(255, 255, 255, 0.7);
+    color: white;
+}
+
+#boton-reiniciar {
+    background-color: rgba(48, 47, 42);
+    font-family: 'Cinzel', sans-serif;
+    color: white;
+    width: 180px;
+    height: 40px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+#boton-reiniciar:hover {
+    background-color: #785f43;
+    color: #ffffff;
+    box-shadow: 0px 0px 5px 0px #ffffff;
+}
+
+.combate {
+    width: 700px;
+    font-family: 'Cinzel', sans-serif;
+    color: white;
+    position: absolute;
+    margin: 135px 0px 0px 0px;
+}
+
+#personajes-combate {
+    display: flex;
+    justify-content: space-between;
+}
+
+#personajes-combate-img {
+    display: flex;
+    height: 280px;
+    column-gap: 380px;
+    justify-content: center;
+}
+
+.img-mascota-enemigo {
+    transform: scaleX(-1);
+}
+
+.vidas {
+    display: grid;
+    gap: 315px;
+    justify-content: center;
+    grid-template-columns: 280px 280px;
+}
+
+#jugador {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+#historial {
+    display: flex;
+    z-index: 20;
+    column-gap: 12px;
+    background: linear-gradient(0deg, rgb(0, 0, 0), rgb(143, 1, 1));
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 20px;
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    opacity: 0;
+    transition-duration: 0.5s;
+}
+
+#ronda-historial {
+    width: 90px;
+    display: flex;
+    flex-direction: column;
+}
+
+#lista-historial-jugador {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#vs-historial {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#lista-historial-enemigo {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#resultado-historial {
+    width: 141px;
+    display: flex;
+    flex-direction: column;
+}
+
+.img-historial {
+    scale: 10%;
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(22 69 101 / 79%);
+    box-sizing: border-box;
+    border-radius: 100%;
+    border: 15px solid rgba(1, 165, 252, 0.9);
+    padding: 28px;
+}
+
+.vidas img:hover ~ #historial{
+    visibility: visible;
+    opacity: 100;
+}
+
+/* COMPATIBILIDAD CELULAR */
+
+@media (max-width: 360px) {
+    .tarjetas, .botones {
+        flex-direction: column;
+    }
+}
