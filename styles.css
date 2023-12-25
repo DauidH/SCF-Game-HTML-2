@@ -333,7 +333,7 @@ input:checked+label {
 
 /* COMPATIBILIDAD CELULAR */
 
-@media (max-width: 1050px) {
+@media (max-width: 1060px) {
 
     .titulo img {
         scale: 150%;
@@ -388,7 +388,9 @@ input:checked+label {
     }
 
     #personajes-combate-img {
-        scale: 120%;
+        scale: 140%;
+        width: 600px;
+        margin-left: 10px;
         display: flex;
         height: 280px;
         column-gap: 0px;
@@ -401,7 +403,7 @@ input:checked+label {
         gap: 46px;
         justify-items: end;
         grid-template-columns: 280px 280px;
-        margin-top: 40px;
+        margin-top: 55px;
     }
 
     #jugador {
