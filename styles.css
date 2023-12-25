@@ -356,10 +356,22 @@ input:checked+label {
 
     #seleccionar-ataque {
         scale: 150%;
+        margin-top: -90px;
     }
 
     .combate {
         scale: 90%;
+    }
+
+    #messages {
+        position: absolute;
+        top: 110px;
+    }
+
+    #mensaje-final {
+        position: absolute;
+        top: 370px;
+        left: 0px;
     }
 
     .tarjetas{
@@ -376,17 +388,36 @@ input:checked+label {
     }
 
     #personajes-combate-img {
+        scale: 120%;
         display: flex;
         height: 280px;
-        column-gap: 170px;
+        column-gap: 0px;
         justify-content: center;
+        margin-top: 55px;
     }
 
     .vidas {
         display: grid;
-        gap: 133px;
-        justify-content: center;
+        gap: 46px;
+        justify-items: end;
         grid-template-columns: 280px 280px;
+        margin-top: 40px;
+    }
+
+    #jugador {
+        width: 336px;
+        display: flex;
+        gap: 4px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #enemigo {
+        width: 220px;
+        display: flex;
+        gap: 4px;
+        flex-direction: column;
+        align-items: center;
     }
 
     #historial {
@@ -394,11 +425,12 @@ input:checked+label {
     }
 
     .img-historial {
-        top: 65%;
+        top: 80%;
+        scale: 18%;
+        margin-left: 20px;
     } 
 
-    #mensaje-final {
-        margin-top: 0px;       
+    #contenedor-ataques {
+        scale: 173%;
     }
-
 }
