@@ -333,8 +333,72 @@ input:checked+label {
 
 /* COMPATIBILIDAD CELULAR */
 
-@media (max-width: 360px) {
-    .tarjetas, .botones {
-        flex-direction: column;
+@media (max-width: 1050px) {
+
+    .titulo img {
+        scale: 150%;
+        position: relative;
+        top: -150px;
     }
+
+    body {
+        margin-top: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #seleccionar-mascota {
+        scale: 150%;
+        position: relative;
+        top: 80px;
+    }
+
+    #seleccionar-ataque {
+        scale: 150%;
+    }
+
+    .combate {
+        scale: 90%;
+    }
+
+    .tarjetas{
+        display: grid;
+        grid-template-columns: 180px 180px 180px;
+    }
+
+    #personajes-combate {
+        display: grid;
+        grid-template-columns: 100px 100px;
+        column-gap: 290px;
+        justify-content: center;
+        margin-top: 163px;
+    }
+
+    #personajes-combate-img {
+        display: flex;
+        height: 280px;
+        column-gap: 170px;
+        justify-content: center;
+    }
+
+    .vidas {
+        display: grid;
+        gap: 133px;
+        justify-content: center;
+        grid-template-columns: 280px 280px;
+    }
+
+    #historial {
+        top: 53%
+    }
+
+    .img-historial {
+        top: 65%;
+    } 
+
+    #mensaje-final {
+        margin-top: 0px;       
+    }
+
 }
