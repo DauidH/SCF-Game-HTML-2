@@ -374,7 +374,7 @@ input:checked+label {
         left: 0px;
     }
 
-    .tarjetas{
+    .tarjetas {
         display: grid;
         grid-template-columns: 180px 180px 180px;
     }
@@ -388,9 +388,9 @@ input:checked+label {
     }
 
     #personajes-combate-img {
-        scale: 140%;
-        width: 600px;
-        margin-left: 10px;
+        scale: 122%;
+        width: 590px;
+        margin-left: 54px;
         display: flex;
         height: 280px;
         column-gap: 0px;
@@ -423,7 +423,7 @@ input:checked+label {
     }
 
     #historial {
-        top: 53%
+        top: 66%
     }
 
     .img-historial {
