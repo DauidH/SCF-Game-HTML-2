@@ -34,6 +34,13 @@ const parrafoMensajeFinal = document.getElementById("mensaje-final")
 const contenedorTarjetas = document.getElementById("contenedor-tarjetas")
 const contenedorAtaques = document.getElementById("contenedor-ataques")
 
+const sectionVerMapa = document.getElementById("ver-mapa")
+const mapa = document.getElementById("mapa")
+const botonArriba = document.getElementById("boton-arriba")
+const botonIzquierda = document.getElementById("boton-izquierda")
+const botonAbajo = document.getElementById("boton-abajo")
+const botonDerecha = document.getElementById("boton-derecha")
+
 let mokepones = []
 
 let ataqueJugador = []
@@ -52,6 +59,7 @@ let inputCatkingo
 
 let mascotaAleatoria
 let mascotaJugador
+let mascotaJugadorObjeto
 
 let ataquesMokepon
 
@@ -68,24 +76,77 @@ let resultado
 let victoriasJugador = 0
 let victoriasEnemigo = 0
 
+let lienzo = mapa.getContext("2d")
+
+let intervalo
+
+let mapaBackground = new Image()
+mapaBackground.src = "./assets/Mapa/mokemap.png"
+
+let alturaQueBuscamos
+let anchoDelMapa = window.innerWidth -20
+const anchoMaximoDelMapa = 800
+
+if(anchoDelMapa > anchoMaximoDelMapa) {
+    anchoDelMapa = anchoMaximoDelMapa -20
+}
+
+alturaQueBuscamos = /* anchoDelMapa * 600 / 800 */ 427.5
+
+mapa.width = anchoDelMapa
+mapa.height = alturaQueBuscamos
+
 class Mokepon {
-    constructor(nombre, id, foto, vida) {
+    constructor(nombre, id, foto, vida, fotoMapa, x = ((anchoDelMapa * 245) / 570), y = ((alturaQueBuscamos * 235) / 427.5)) {
         this.nombre = nombre
         this.id = id
         this.foto = foto
         this.vida = vida
         this.ataques = []
+        this.ancho = 60
+        this.alto = 60
+        this.x = x
+        this.y = y
+        this.mapaFoto = new Image()
+        this.mapaFoto.src = fotoMapa
+        this.velocidadX = 0
+        this.velocidadY = 0
+    }
+
+    pintarMokepon() {
+        lienzo.drawImage(
+            this.mapaFoto,
+            this.x,
+            this.y,
+            this.ancho,
+            this.alto
+        )
     }
 }
 
-let gatungFu = new Mokepon("Gatung Fu", "gatung-fu", "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-blank-animated-unscreen-mirror.gif", 5)
-let sheriffCat = new Mokepon("Sheriff Cat", "sheriff-cat", "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-blank-animated-unscreen.gif", 5)
-let catSparrow = new Mokepon("Cat Sparrow", "cat-sparrow", "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-animated-unscreen-mirror.gif", 5)
-let gathofen = new Mokepon("Gathofen", "gathofen", "./assets/Personajes/Gathofen/gathofen-animated-unscreen.gif", 5)
-let catminator = new Mokepon("Catminator", "catminator", "./assets/Personajes/Catminator/catminator-animated-unscreen-mirror.gif", 5)
-let catkingo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo/catkingo-animated-unscreen-mirror.gif", 5)
+let gatungFu = new Mokepon("Gatung Fu", "gatung-fu", "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-blank-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-face-arma.png")
+let sheriffCat = new Mokepon("Sheriff Cat", "sheriff-cat", "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-blank-animated-unscreen.gif", 5, "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-face.png")
+let catSparrow = new Mokepon("Cat Sparrow", "cat-sparrow", "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-face.png")
+let gathofen = new Mokepon("Gathofen", "gathofen", "./assets/Personajes/Gathofen/gathofen-animated-unscreen.gif", 5, "./assets/Personajes/Gathofen/gathofen-face-arma.png")
+let catminator = new Mokepon("Catminator", "catminator", "./assets/Personajes/Catminator/catminator-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catminator/catminator-face.png")
+let catkingo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo-2.0/catkingo-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catkingo-2.0/catkingo-face.png")
+
+let gatungFuEnemigo = new Mokepon("Gatung Fu", "gatung-fu", "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-blank-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-face-arma.png", ((anchoDelMapa * 390) / 570), ((alturaQueBuscamos * 35) / (427.5)))
+let sheriffCatEnemigo = new Mokepon("Sheriff Cat", "sheriff-cat", "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-blank-animated-unscreen.gif", 5, "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-face.png", ((anchoDelMapa * 85) / 570), ((alturaQueBuscamos * 25) / (427.5)))
+let catSparrowEnemigo = new Mokepon("Cat Sparrow", "cat-sparrow", "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-face.png", ((anchoDelMapa * 390) / 570), ((alturaQueBuscamos * 310) / (427.5)))
+let gathofenEnemigo = new Mokepon("Gathofen", "gathofen", "./assets/Personajes/Gathofen/gathofen-animated-unscreen.gif", 5, "./assets/Personajes/Gathofen/gathofen-face-arma.png", ((anchoDelMapa * 465) / 570), ((alturaQueBuscamos * 165) / (427.5)))
+let catminatorEnemigo = new Mokepon("Catminator", "catminator", "./assets/Personajes/Catminator/catminator-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catminator/catminator-face.png", ((anchoDelMapa * 75) / 570), ((alturaQueBuscamos * 280) / (427.5)))
+let catkingoEnemigo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo-2.0/catkingo-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catkingo-2.0/catkingo-face.png", ((anchoDelMapa * 280) / 570), ((alturaQueBuscamos * 145) / (427.5)))
 
 gatungFu.ataques.push(
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+)
+
+gatungFuEnemigo.ataques.push(
     { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
     { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
     { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
@@ -101,7 +162,23 @@ sheriffCat.ataques.push(
     { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
 )
 
+sheriffCatEnemigo.ataques.push(
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+)
+
 catSparrow.ataques.push(
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+)
+
+catSparrowEnemigo.ataques.push(
     { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
     { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
     { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
@@ -117,7 +194,23 @@ gathofen.ataques.push(
     { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
 )
 
+gathofenEnemigo.ataques.push(
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+)
+
 catminator.ataques.push(
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+)
+
+catminatorEnemigo.ataques.push(
     { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
     { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
     { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
@@ -133,6 +226,14 @@ catkingo.ataques.push(
     { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
 )
 
+catkingoEnemigo.ataques.push(
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
+    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
+)
+
 mokepones.push(gatungFu, sheriffCat, catSparrow, gathofen, catminator, catkingo)
 
 
@@ -140,6 +241,7 @@ function iniciarJuego() {
     sectionSeleccionarAtaque.style.display = "none"
     sectionReiniciar.style.display = "none"
     sectionMessages.style.display = "none"
+    sectionVerMapa.style.display = "none"
     historial.style.display = "none"
 
     mokepones.forEach((mokepon) => {
@@ -210,7 +312,9 @@ function seleccionarMascotaJugador() {
     else {
         alert("No has seleccionado ninguna mascota, por favor selecciona alguna")
     }
+
     extraerAtaques(mascotaJugador)
+    iniciarMapa()
 }
 
 function extraerAtaques(mascotaJugador) {
@@ -268,7 +372,7 @@ function secuenciaAtaque() {
 function desaparecerPersonajes(mascotaSeleccionada) {
     botonMascotaJugador.disabled = true
     sectionSeleccionarMascota.style.display = "none"
-    sectionSeleccionarAtaque.style.display = "flex"
+    sectionVerMapa.style.display = "flex"
 
     nuevoPersonajesCombate = document.createElement("p")
     nuevoPersonajesCombate.innerHTML = mascotaSeleccionada
@@ -289,28 +393,31 @@ function desaparecerPersonajes(mascotaSeleccionada) {
         nuevoPersonajesCombateImg.src = catkingo.foto
     }
     personajesCombateImg.appendChild(nuevoPersonajesCombateImg)
-
-    seleccionarMascotaEnemigo()
 }
 
-function seleccionarMascotaEnemigo() {
+function seleccionarMascotaEnemigo(enemigo) {
     mascotaAleatoria = aleatorio(0, mokepones.length - 1)
-    mascotaSeleccionadaEnemigo = mokepones[mascotaAleatoria].nombre
+    //mascotaSeleccionadaEnemigo = mokepones[mascotaAleatoria].nombre
  
     nuevoPersonajesCombate = document.createElement("p")
-    nuevoPersonajesCombate.innerHTML = mascotaSeleccionadaEnemigo
+    //nuevoPersonajesCombate.innerHTML = mascotaSeleccionadaEnemigo
+    nuevoPersonajesCombate.innerHTML = enemigo.nombre
     personajesCombate.appendChild(nuevoPersonajesCombate)
 
-    spanMascotaEnemigo.innerHTML = mascotaSeleccionadaEnemigo
+    //spanMascotaEnemigo.innerHTML = mascotaSeleccionadaEnemigo
+    spanMascotaEnemigo.innerHTML = enemigo.nombre
 
     nuevoPersonajesCombateImg = document.createElement("img")
     nuevoPersonajesCombateImg.setAttribute("class", "img-mascota-enemigo")
-    nuevoPersonajesCombateImg.src = mokepones[mascotaAleatoria].foto
+    //nuevoPersonajesCombateImg.src = mokepones[mascotaAleatoria].foto
+    nuevoPersonajesCombateImg.src = enemigo.foto
     personajesCombateImg.appendChild(nuevoPersonajesCombateImg)
 
-    ataquesMokeponEnemigo = mokepones[mascotaAleatoria].ataques
+    //ataquesMokeponEnemigo = mokepones[mascotaAleatoria].ataques
+    ataquesMokeponEnemigo = enemigo.ataques
         
-    alert("Tu enemigo ha escogido a " + mascotaSeleccionadaEnemigo)
+    //alert("Tu enemigo ha escogido a " + mascotaSeleccionadaEnemigo)
+    alert("Te has topado con " + enemigo.nombre + " ¡A LUCHAR!")
 }
 
 function ataqueAleatorioEnemigo() {
@@ -416,6 +523,137 @@ function crearMensajeFinal(resultadoFinal) {
 
 function reiniciarJuego() {
     location.reload()
+}
+
+function pintarCanvas() {
+    mascotaJugadorObjeto.x = mascotaJugadorObjeto.x + mascotaJugadorObjeto.velocidadX
+    mascotaJugadorObjeto.y = mascotaJugadorObjeto.y + mascotaJugadorObjeto.velocidadY
+    lienzo.clearRect(0, 0, mapa.width, mapa.height)
+    lienzo.drawImage(
+        mapaBackground,
+        0,
+        0,
+        mapa.width,
+        mapa.height
+    )  
+    mascotaJugadorObjeto.pintarMokepon()  
+    gatungFuEnemigo.pintarMokepon()
+    sheriffCatEnemigo.pintarMokepon()
+    catSparrowEnemigo.pintarMokepon()
+    gathofenEnemigo.pintarMokepon()
+    catminatorEnemigo.pintarMokepon()
+    catkingoEnemigo.pintarMokepon()
+
+    botonArriba.addEventListener("touchstart", moverArriba)
+    botonDerecha.addEventListener("touchstart", moverDerecha)
+    botonAbajo.addEventListener("touchstart", moverAbajo)
+    botonIzquierda.addEventListener("touchstart", moverIzquierda)
+
+    botonArriba.addEventListener("touchend", detenerMovimiento)
+    botonDerecha.addEventListener("touchend", detenerMovimiento)
+    botonAbajo.addEventListener("touchend", detenerMovimiento)
+    botonIzquierda.addEventListener("touchend", detenerMovimiento)
+
+    botonArriba.addEventListener("mousedown", moverArriba)
+    botonDerecha.addEventListener("mousedown", moverDerecha)
+    botonAbajo.addEventListener("mousedown", moverAbajo)
+    botonIzquierda.addEventListener("mousedown", moverIzquierda)
+
+    botonArriba.addEventListener("mouseup", detenerMovimiento)
+    botonDerecha.addEventListener("mouseup", detenerMovimiento)
+    botonAbajo.addEventListener("mouseup", detenerMovimiento)
+    botonIzquierda.addEventListener("mouseup", detenerMovimiento)
+
+    if (mascotaJugadorObjeto.velocidadX !== 0 || mascotaJugadorObjeto.velocidadY !== 0 ) {
+        revisarColision(gatungFuEnemigo)
+        revisarColision(sheriffCatEnemigo)
+        revisarColision(catSparrowEnemigo)
+        revisarColision(gathofenEnemigo)
+        revisarColision(catminatorEnemigo)
+        revisarColision(catkingoEnemigo)
+    }
+}
+
+function moverArriba() {
+    mascotaJugadorObjeto.velocidadY = - 5
+}
+
+function moverIzquierda() {
+    mascotaJugadorObjeto.velocidadX = - 5
+}
+
+function moverAbajo() {
+    mascotaJugadorObjeto.velocidadY = 5
+}
+
+function moverDerecha() {
+    mascotaJugadorObjeto.velocidadX = 5
+}
+
+function detenerMovimiento() {
+    mascotaJugadorObjeto.velocidadX = 0
+    mascotaJugadorObjeto.velocidadY = 0
+}
+
+function sePresionoUnaTecla(event) {
+   switch (event.key) {
+    case "ArrowUp":
+        moverArriba()
+        break
+    case "ArrowDown":
+        moverAbajo()
+        break
+    case "ArrowLeft":
+        moverIzquierda()
+        break
+    case "ArrowRight":
+        moverDerecha()
+        break
+    default:
+        break
+   }
+}
+
+function iniciarMapa() {
+    mascotaJugadorObjeto = obtenerObjetoMascota(mascotaJugador)    
+    intervalo = setInterval(pintarCanvas, 50)
+    window.addEventListener("keydown", sePresionoUnaTecla)
+    window.addEventListener("keyup", detenerMovimiento)
+}
+
+function obtenerObjetoMascota() {
+    for (let i= 0; i < mokepones.length; i++) {
+        if (mascotaJugador === mokepones[i].nombre) {
+            return mokepones[i]
+        }
+    }
+}
+
+function revisarColision(enemigo) {
+    const arribaEnemigo = enemigo.y
+    const abajoEnemigo = enemigo.y + enemigo.alto
+    const derechaEnemigo = enemigo.x + enemigo.ancho
+    const izquierdaEnemigo = enemigo.x
+
+    const arribaMascota = mascotaJugadorObjeto.y
+    const abajoMascota = mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
+    const derechaMascota = mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
+    const izquierdaMascota = mascotaJugadorObjeto.x
+
+    if(
+        abajoMascota < arribaEnemigo ||
+        arribaMascota > abajoEnemigo ||
+        derechaMascota < izquierdaEnemigo ||
+        izquierdaMascota > derechaEnemigo
+    ) {
+        return
+    }
+
+    detenerMovimiento()
+    clearInterval(intervalo)
+    sectionSeleccionarAtaque.style.display = "flex"
+    sectionVerMapa.style.display = "none"
+    seleccionarMascotaEnemigo(enemigo)
 }
 
 window.addEventListener("load", iniciarJuego)

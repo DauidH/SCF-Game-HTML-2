@@ -20,6 +20,7 @@ body {
 .titulo {
     margin: 0px;
     display: flex;
+    color: #EADBC8;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -82,7 +83,7 @@ body {
 
 #tarjeta-catkingo img {
     height: 211px;
-    width: 151px;
+    width: 180px;
 }
 
 #boton-mascota {
@@ -331,6 +332,22 @@ input:checked+label {
     opacity: 100;
 }
 
+#ver-mapa {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#ver-mapa button {
+    background-color: rgba(66, 62, 39, 0.7);
+    font-family: 'Cinzel', sans-serif;
+    color: white;
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    margin: 0px;
+}
+
 /* COMPATIBILIDAD CELULAR */
 
 @media (max-width: 1060px) {
@@ -434,5 +451,16 @@ input:checked+label {
 
     #contenedor-ataques {
         scale: 172%;
+    }
+
+    #mapa {
+        height: 665px;
+        width: 890px;
+        margin-bottom: 110px;
+    }
+
+    #ver-mapa button {
+        margin: 60px;
+        scale: 200%;
     }
 }
