@@ -23,11 +23,11 @@ const ataquesDelJugador = document.getElementById("ataques-del-jugador")
 const vs = document.getElementById("vs")
 const ataquesDelEnemigo = document.getElementById("ataques-del-enemigo")
 const historial = document.getElementById("historial")
-const rondaHistorial = document.getElementById("ronda-historial")
-const listaHistorialJugador = document.getElementById("lista-historial-jugador")
-const vsHistorial = document.getElementById("vs-historial")
-const listaHistorialEnemigo = document.getElementById("lista-historial-enemigo")
-const resultadoHistorial = document.getElementById("resultado-historial")
+const ronda1 = document.getElementById("ronda-1")
+const ronda2 = document.getElementById("ronda-2")
+const ronda3 = document.getElementById("ronda-3")
+const ronda4 = document.getElementById("ronda-4")
+const ronda5 = document.getElementById("ronda-5")
 
 const parrafoMensajeFinal = document.getElementById("mensaje-final")
 
@@ -57,7 +57,6 @@ let inputGathofen
 let inputCatminator
 let inputCatkingo
 
-let mascotaAleatoria
 let mascotaJugador
 let mascotaJugadorObjeto
 
@@ -65,9 +64,9 @@ let ataquesMokepon
 
 let ataquesMokeponEnemigo
 
-let botonFuego
-let botonAgua
-let botonTierra
+let botonPolvora
+let botonFilo
+let botonLetal
 
 let botones = []
 
@@ -95,6 +94,9 @@ alturaQueBuscamos = /* anchoDelMapa * 600 / 800 */ 427.5
 
 mapa.width = anchoDelMapa
 mapa.height = alturaQueBuscamos
+
+ataquesJugadorNombres = []
+ataquesEnemigoNombres = []
 
 class Mokepon {
     constructor(nombre, id, foto, vida, fotoMapa, x = ((anchoDelMapa * 245) / 570), y = ((alturaQueBuscamos * 235) / 427.5)) {
@@ -138,104 +140,64 @@ let gathofenEnemigo = new Mokepon("Gathofen", "gathofen", "./assets/Personajes/G
 let catminatorEnemigo = new Mokepon("Catminator", "catminator", "./assets/Personajes/Catminator/catminator-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catminator/catminator-face.png", ((anchoDelMapa * 75) / 570), ((alturaQueBuscamos * 280) / (427.5)))
 let catkingoEnemigo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo-2.0/catkingo-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catkingo-2.0/catkingo-face.png", ((anchoDelMapa * 280) / 570), ((alturaQueBuscamos * 145) / (427.5)))
 
-gatungFu.ataques.push(
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-)
+const GATUNG_FU_ATAQUES = [
+    { nombre: "⚔️ Estocada", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "⚔️ Corte Lateral", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "⚔️ Incisión Profunda", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "💥 Bomba De Humo", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "💀 Kung Fu Punch!", id: "boton-letal", poder: "LETAL 💀"},
+]
+const SHERIFF_CAT_ATAQUES = [ 
+    { nombre: "💥 Tiro Doble", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "💥 Magnum 500!!", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "💥 Desenfundada Mortal", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "⚔️ Escarbadientes Punzante", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "💀 Veneno En El Abrevadero", id: "boton-letal", poder: "LETAL 💀"},
+]
+const CAT_SPARROW_ATAQUES = [
+    { nombre: "💀 Maldición Del Perla Negra", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "💀 Rastas Asfixiantes", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "💀 Botellazo De Ron", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "💥 Bola De Cañón", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "⚔️ Espadazo Por La Espalda!", id: "boton-filo", poder: "FILO ⚔️"},
+]
+const GATHOFEN_ATAQUES = [
+    { nombre: "💥 Ametralladora", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "💥 Granada", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "💀 Gas Venenoso", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "💀 Cegadora", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "⚔️ Ballonetazo!", id: "boton-filo", poder: "FILO ⚔️"},
+]
+const CATMINATOR_ATAQUES = [
+    { nombre: "💥 Hasta La Vista Baby!", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "💥 Perdigón De Escopeta", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "⚔️ Laser Cortante", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "⚔️ Cuchillandroide", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "💀 Puño Metálico", id: "boton-letal", poder: "LETAL 💀"},
+]
+const CATKINGO_ATAQUES = [
+    { nombre: "⚔️ Corte De Hacha", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "⚔️ Lanza A Distancia", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "💀 Por Asgard !", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "💀 Golpe De Escudo", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "💥 Flecha Incendiaria", id: "boton-polvora", poder: "POLVORA 💥"},
+]
 
-gatungFuEnemigo.ataques.push(
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-)
+gatungFu.ataques.push(...GATUNG_FU_ATAQUES)// para que no se pase en forma de lista sino los valores de los ataques como tal, se coloca los 3 ... iniciales.
+sheriffCat.ataques.push(...SHERIFF_CAT_ATAQUES)
+catSparrow.ataques.push(...CAT_SPARROW_ATAQUES)
+gathofen.ataques.push(...GATHOFEN_ATAQUES)
+catminator.ataques.push(...CATMINATOR_ATAQUES)
+catkingo.ataques.push(...CATKINGO_ATAQUES)
 
-sheriffCat.ataques.push(
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-)
-
-sheriffCatEnemigo.ataques.push(
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-)
-
-catSparrow.ataques.push(
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-)
-
-catSparrowEnemigo.ataques.push(
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-)
-
-gathofen.ataques.push(
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-)
-
-gathofenEnemigo.ataques.push(
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-)
-
-catminator.ataques.push(
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-)
-
-catminatorEnemigo.ataques.push(
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-)
-
-catkingo.ataques.push(
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-)
-
-catkingoEnemigo.ataques.push(
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "🌱", id: "boton-tierra", poder: "TIERRA 🌱"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "💧", id: "boton-agua", poder: "AGUA 💧"},
-    { nombre: "🔥", id: "boton-fuego", poder: "FUEGO 🔥"},
-)
+gatungFuEnemigo.ataques.push(...GATUNG_FU_ATAQUES)
+sheriffCatEnemigo.ataques.push(...SHERIFF_CAT_ATAQUES)
+catSparrowEnemigo.ataques.push(...CAT_SPARROW_ATAQUES)
+gathofenEnemigo.ataques.push(...GATHOFEN_ATAQUES)
+catminatorEnemigo.ataques.push(...CATMINATOR_ATAQUES)
+catkingoEnemigo.ataques.push(...CATKINGO_ATAQUES)
 
 mokepones.push(gatungFu, sheriffCat, catSparrow, gathofen, catminator, catkingo)
-
 
 function iniciarJuego() {
     sectionSeleccionarAtaque.style.display = "none"
@@ -335,9 +297,9 @@ function mostrarAtaques(ataques) {
         contenedorAtaques.innerHTML += ataquesMokepon
     })
 
-    botonFuego = document.getElementById("boton-fuego")
-    botonAgua = document.getElementById("boton-agua")
-    botonTierra = document.getElementById("boton-tierra")
+    botonPolvora = document.getElementById("boton-polvora")
+    botonFilo = document.getElementById("boton-filo")
+    botonLetal = document.getElementById("boton-letal")
     botones = document.querySelectorAll(".BAtaque")
 
     secuenciaAtaque()
@@ -346,25 +308,24 @@ function mostrarAtaques(ataques) {
 function secuenciaAtaque() {
     botones.forEach((boton) => {
         boton.addEventListener("click", (e) => {
-            if (e.target.textContent === "🔥") {
-                ataqueJugador.push("FUEGO 🔥")
-                console.log(ataqueJugador)
+            ataqueJugadorNombre = e.target.textContent
+            ataquesJugadorNombres.push(ataqueJugadorNombre)
+            if (e.target.textContent.includes("💥")) {
+                ataqueJugador.push("POLVORA 💥")
                 boton.style.background = "#112f58"
                 boton.disabled = true
-            } else if (e.target.textContent === "💧") {
-                ataqueJugador.push("AGUA 💧")
-                console.log(ataqueJugador)
+            } else if (e.target.textContent.includes("⚔️")) {
+                ataqueJugador.push("FILO ⚔️")
                 boton.style.background = "#112f58"
                 boton.disabled = true
             } else {
-                ataqueJugador.push("TIERRA 🌱")
-                console.log(ataqueJugador)
+                ataqueJugador.push("LETAL 💀")
                 boton.style.background = "#112f58"
                 boton.disabled = true
             }
             ronda++
             ataqueAleatorioEnemigo()
-            historial.style.display = "flex"
+            historial.style.display = "table"
         })  
     })
 }
@@ -396,27 +357,19 @@ function desaparecerPersonajes(mascotaSeleccionada) {
 }
 
 function seleccionarMascotaEnemigo(enemigo) {
-    mascotaAleatoria = aleatorio(0, mokepones.length - 1)
-    //mascotaSeleccionadaEnemigo = mokepones[mascotaAleatoria].nombre
- 
     nuevoPersonajesCombate = document.createElement("p")
-    //nuevoPersonajesCombate.innerHTML = mascotaSeleccionadaEnemigo
     nuevoPersonajesCombate.innerHTML = enemigo.nombre
     personajesCombate.appendChild(nuevoPersonajesCombate)
 
-    //spanMascotaEnemigo.innerHTML = mascotaSeleccionadaEnemigo
     spanMascotaEnemigo.innerHTML = enemigo.nombre
 
     nuevoPersonajesCombateImg = document.createElement("img")
     nuevoPersonajesCombateImg.setAttribute("class", "img-mascota-enemigo")
-    //nuevoPersonajesCombateImg.src = mokepones[mascotaAleatoria].foto
     nuevoPersonajesCombateImg.src = enemigo.foto
     personajesCombateImg.appendChild(nuevoPersonajesCombateImg)
 
-    //ataquesMokeponEnemigo = mokepones[mascotaAleatoria].ataques
     ataquesMokeponEnemigo = enemigo.ataques
         
-    //alert("Tu enemigo ha escogido a " + mascotaSeleccionadaEnemigo)
     alert("Te has topado con " + enemigo.nombre + " ¡A LUCHAR!")
 }
 
@@ -428,18 +381,19 @@ function ataqueAleatorioEnemigo() {
         return ataqueAleatorioEnemigo()
     }
 
-    poderEscogido = mokepones[mascotaAleatoria].ataques[ataqueAleatorio].poder
+    poderEscogido = ataquesMokeponEnemigo[ataqueAleatorio].poder
     ataqueEnemigo.push(poderEscogido)
+    poderEscogidoNombre = ataquesMokeponEnemigo[ataqueAleatorio].nombre
+    ataquesEnemigoNombres.push(poderEscogidoNombre)
 
     numerosAtaqueEnemigo.push(ataqueAleatorio)
-    console.log(ataqueEnemigo)
     combate()
 }
 
 function combate() {
     if (ataqueEnemigo[ronda-1] == ataqueJugador[ronda-1]) {
         crearMensaje("¡Empate! 🥶")
-    } else if ((ataqueJugador[ronda-1] == "FUEGO 🔥" && ataqueEnemigo[ronda-1] == "TIERRA 🌱") || (ataqueJugador[ronda-1] == "AGUA 💧" && ataqueEnemigo[ronda-1] == "FUEGO 🔥") || (ataqueJugador[ronda-1] == "TIERRA 🌱" && ataqueEnemigo[ronda-1] == "AGUA 💧")) {
+    } else if ((ataqueJugador[ronda-1] == "FILO ⚔️" && ataqueEnemigo[ronda-1] == "LETAL 💀") || (ataqueJugador[ronda-1] == "POLVORA 💥" && ataqueEnemigo[ronda-1] == "FILO ⚔️") || (ataqueJugador[ronda-1] == "LETAL 💀" && ataqueEnemigo[ronda-1] == "POLVORA 💥")) {
         crearMensaje("¡Ganaste! 🤑🥵")
         victoriasJugador++    
         spanVidasJugador.innerHTML = victoriasJugador
@@ -501,17 +455,34 @@ function crearMensaje(resultado) {
     let nuevoListaHistorialEnemigo = document.createElement("p")
     let nuevoResultadoHistorial = document.createElement("p")
 
+    nuevoRondaHistorial.classList.add("celda")
+    nuevoListaHistorialJugador.classList.add("celda")
+    nuevoVsHistorial.classList.add("celda")
+    nuevoListaHistorialEnemigo.classList.add("celda")
+    nuevoResultadoHistorial.classList.add("celda")
+
     nuevoRondaHistorial.innerHTML = "Ronda " + ronda +": "
-    nuevoListaHistorialJugador.innerHTML = ataqueJugador[ronda-1]
+    nuevoListaHistorialJugador.innerHTML = ataquesJugadorNombres[ronda-1]
     nuevoVsHistorial.innerHTML = " VS "
-    nuevoListaHistorialEnemigo.innerHTML = ataqueEnemigo[ronda-1]
+    nuevoListaHistorialEnemigo.innerHTML = ataquesEnemigoNombres[ronda-1]
     nuevoResultadoHistorial.innerHTML = "  =  " + resultado
 
-    rondaHistorial.appendChild(nuevoRondaHistorial)
-    listaHistorialJugador.appendChild(nuevoListaHistorialJugador)
-    vsHistorial.appendChild(nuevoVsHistorial)
-    listaHistorialEnemigo.appendChild(nuevoListaHistorialEnemigo)
-    resultadoHistorial.appendChild(nuevoResultadoHistorial)
+    const cambioRondas = () => {
+        switch (ronda) {
+            case 1: return ronda1
+            case 2: return ronda2
+            case 3: return ronda3
+            case 4: return ronda4
+            case 5: return ronda5
+            default: break
+           }
+    }
+
+    cambioRondas().appendChild(nuevoRondaHistorial)
+    cambioRondas().appendChild(nuevoListaHistorialJugador)
+    cambioRondas().appendChild(nuevoVsHistorial)
+    cambioRondas().appendChild(nuevoListaHistorialEnemigo)
+    cambioRondas().appendChild(nuevoResultadoHistorial)
 }
 
 function crearMensajeFinal(resultadoFinal) {

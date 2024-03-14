@@ -152,8 +152,9 @@ input:checked+label {
 }
 
 #ataques-del-jugador {
+    white-space: nowrap;
     display: flex;
-    width: 87px;
+    width: 105px;
     background-color: rgb(58 58 58 / 100%);
     padding: 4px;
     margin-top: 20px;
@@ -174,8 +175,9 @@ input:checked+label {
 }
 
 #ataques-del-enemigo {
+    white-space: nowrap;
     display: flex;
-    width: 87px;
+    width: 105px;
     background-color: rgb(58 58 58 / 100%);
     padding: 4px;
     margin-top: 20px;
@@ -188,7 +190,7 @@ input:checked+label {
 }
 
 #mensajes {
-    width: 180px;
+    width: 202px;
     background-color: rgb(58 58 58 / 100%);
     padding: 20px;
     margin-top: -7px;
@@ -238,13 +240,14 @@ input:checked+label {
 
 #personajes-combate {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 450px;
 }
 
 #personajes-combate-img {
     display: flex;
     height: 280px;
-    column-gap: 380px;
+    column-gap: 290px;
     justify-content: center;
 }
 
@@ -260,74 +263,57 @@ input:checked+label {
 }
 
 #jugador {
+    white-space: nowrap;
     display: flex;
     justify-content: flex-end;
     gap: 4px;
 }
 
+#enemigo{
+    white-space: nowrap;
+}
+
 #historial {
-    display: flex;
+    display: table;
     z-index: 20;
-    column-gap: 12px;
     background: linear-gradient(0deg, rgb(0, 0, 0), rgb(143, 1, 1));
-    padding-left: 20px;
-    padding-right: 20px;
+    color: #EADBC8;
     border-radius: 20px;
     position: absolute;
-    top: 22%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 23em;
     visibility: hidden;
     opacity: 0;
     transition-duration: 0.5s;
 }
 
-#ronda-historial {
-    width: 90px;
-    display: flex;
-    flex-direction: column;
+.fila {
+    display: table-row;
 }
 
-#lista-historial-jugador {
-    width: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#vs-historial {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#lista-historial-enemigo {
-    width: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#resultado-historial {
-    width: 141px;
-    display: flex;
-    flex-direction: column;
+.celda {
+    width: 97px;
+    display: table-cell;
+    padding-top: 8px;
+    text-align: center;
+    font: 105% times-new-roman;
 }
 
 .img-historial {
     scale: 10%;
     position: absolute;
-    top: 50%;
-    left: 25%;
-    transform: translate(-50%, -50%);
+    top: 33em;
     background-color: rgb(22 69 101 / 79%);
-    box-sizing: border-box;
     border-radius: 100%;
     border: 15px solid rgba(1, 165, 252, 0.9);
     padding: 28px;
 }
 
 .vidas img:hover ~ #historial{
+    visibility: visible;
+    opacity: 100;
+}
+
+.img-historial:hover ~ #historial{
     visibility: visible;
     opacity: 100;
 }
@@ -424,6 +410,7 @@ input:checked+label {
     }
 
     #jugador {
+        white-space: nowrap;
         width: 336px;
         display: flex;
         gap: 4px;
@@ -432,6 +419,7 @@ input:checked+label {
     }
 
     #enemigo {
+        white-space: nowrap;
         width: 220px;
         display: flex;
         gap: 4px;
