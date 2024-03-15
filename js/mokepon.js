@@ -107,6 +107,8 @@ mapa.height = alturaQueBuscamos
 ataquesJugadorNombres = []
 ataquesEnemigoNombres = []
 
+let enemigosDerrotados = 0
+
 class Mokepon {
     constructor(nombre, id, foto, vida, fotoMapa, x = ((anchoDelMapa * 245) / 570), y = ((alturaQueBuscamos * 235) / 427.5)) {
         this.nombre = nombre
@@ -400,14 +402,22 @@ function desaparecerPersonajes(mascotaSeleccionada) {
 
 function seleccionarMascotaEnemigo(enemigo) {
     nuevoPersonajesCombate = document.createElement("p")
+    nuevoPersonajesCombate.id = "texto-nombre-enemigo"
     nuevoPersonajesCombate.innerHTML = enemigo.nombre
-    personajesCombate.appendChild(nuevoPersonajesCombate)
+    if (enemigosDerrotados === 0) {
+        personajesCombate.appendChild(nuevoPersonajesCombate)
+    } else if (enemigosDerrotados !== 0) {  
+        textoNombreEnemigo = document.getElementById("texto-nombre-enemigo")
+        textoNombreEnemigo.innerHTML = enemigo.nombre
+    }
 
     spanMascotaEnemigo.innerHTML = enemigo.nombre
 
     nuevoPersonajesCombateImg = document.createElement("img")
-    nuevoPersonajesCombateImg.setAttribute("class", "img-mascota-enemigo")
+    nuevoPersonajesCombateImg.id = "img-mascota-enemigo"
     nuevoPersonajesCombateImg.src = enemigo.foto
+    imgMascotaEnemigo = document.getElementById("img-mascota-enemigo")
+    if (imgMascotaEnemigo) {imgMascotaEnemigo.remove()}
     personajesCombateImg.appendChild(nuevoPersonajesCombateImg)
 
     ataquesMokeponEnemigo = enemigo.ataques
@@ -538,7 +548,6 @@ function crearMensaje(resultado) {
 
 function crearMensajeFinal(resultadoFinal) {
     mensajeFinalInner.innerHTML = resultadoFinal
-
     sectionReiniciar.style.display = "flex"
     if (intentos !== 0 && resultadoFinal.includes("ganado")){
         funcionBotonReiniciar("Siguiente")
@@ -565,7 +574,26 @@ function funcionBotonReiniciar (botonResultado) {
 }
 
 function siguiente() {
-    console.log("xd")
+    enemigosDerrotados++
+    intentos = 3
+    sectionSeleccionarAtaque.style.display = "none"
+    sectionVerMapa.style.display = "flex"
+    if (mascotaEnemigoObjeto.nombre === "Gatung Fu") {
+        gatungFuEnemigo = null
+    } else if (mascotaEnemigoObjeto.nombre === "Sheriff Cat") {
+        sheriffCatEnemigo = null
+    } else if (mascotaEnemigoObjeto.nombre === "Cat Sparrow") {
+        catSparrowEnemigo = null
+    } else if (mascotaEnemigoObjeto.nombre === "Gathofen") {
+        gathofenEnemigo = null
+    } else if (mascotaEnemigoObjeto.nombre === "Catminator") {
+        catminatorEnemigo = null
+    } else if (mascotaEnemigoObjeto.nombre === "Catkingo") {
+        catkingoEnemigo = null
+    }
+    iniciarMapa()
+    reintentar()
+    if (enemigosDerrotados === 6){alert("¡HAS LOGRADO SER EL LUCHADOR SUPREMO! ¡FELICIDADES, HAS TERMINADO EL JUEGO!")}
 }
 
 function reintentar() {
@@ -612,12 +640,12 @@ function pintarCanvas() {
         mapa.height
     )  
     mascotaJugadorObjeto.pintarMokepon()  
-    gatungFuEnemigo.pintarMokepon()
-    sheriffCatEnemigo.pintarMokepon()
-    catSparrowEnemigo.pintarMokepon()
-    gathofenEnemigo.pintarMokepon()
-    catminatorEnemigo.pintarMokepon()
-    catkingoEnemigo.pintarMokepon()
+    if (gatungFuEnemigo) {gatungFuEnemigo.pintarMokepon()}
+    if (sheriffCatEnemigo) {sheriffCatEnemigo.pintarMokepon()}
+    if (catSparrowEnemigo) {catSparrowEnemigo.pintarMokepon()}
+    if (gathofenEnemigo) {gathofenEnemigo.pintarMokepon()}
+    if (catminatorEnemigo) {catminatorEnemigo.pintarMokepon()}
+    if (catkingoEnemigo) {catkingoEnemigo.pintarMokepon()}
 
     botonArriba.addEventListener("touchstart", moverArriba)
     botonDerecha.addEventListener("touchstart", moverDerecha)
@@ -705,31 +733,35 @@ function obtenerObjetoMascota() {
 }
 
 function revisarColision(enemigo) {
-    const arribaEnemigo = enemigo.y
-    const abajoEnemigo = enemigo.y + enemigo.alto
-    const derechaEnemigo = enemigo.x + enemigo.ancho
-    const izquierdaEnemigo = enemigo.x
+    if (enemigo){
+        let arribaEnemigo = enemigo.y
+        let abajoEnemigo = enemigo.y + enemigo.alto
+        let derechaEnemigo = enemigo.x + enemigo.ancho
+        let izquierdaEnemigo = enemigo.x
 
-    const arribaMascota = mascotaJugadorObjeto.y
-    const abajoMascota = mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
-    const derechaMascota = mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
-    const izquierdaMascota = mascotaJugadorObjeto.x
+        let arribaMascota = mascotaJugadorObjeto.y
+        let abajoMascota = mascotaJugadorObjeto.y + mascotaJugadorObjeto.alto
+        let derechaMascota = mascotaJugadorObjeto.x + mascotaJugadorObjeto.ancho
+        let izquierdaMascota = mascotaJugadorObjeto.x
 
-    if(
-        abajoMascota < arribaEnemigo ||
-        arribaMascota > abajoEnemigo ||
-        derechaMascota < izquierdaEnemigo ||
-        izquierdaMascota > derechaEnemigo
-    ) {
+        if(
+            abajoMascota < arribaEnemigo ||
+            arribaMascota > abajoEnemigo ||
+            derechaMascota < izquierdaEnemigo ||
+            izquierdaMascota > derechaEnemigo
+        ) {
+            return
+        }
+
+        detenerMovimiento()
+        clearInterval(intervalo)
+        sectionSeleccionarAtaque.style.display = "flex"
+        sectionVerMapa.style.display = "none"
+        mascotaEnemigoObjeto = enemigo
+        seleccionarMascotaEnemigo(enemigo)
+    } else {
         return
     }
-
-    detenerMovimiento()
-    clearInterval(intervalo)
-    sectionSeleccionarAtaque.style.display = "flex"
-    sectionVerMapa.style.display = "none"
-    mascotaEnemigoObjeto = enemigo
-    seleccionarMascotaEnemigo(enemigo)
 }
 
 window.addEventListener("load", iniciarJuego)

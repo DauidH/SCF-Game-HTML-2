@@ -251,7 +251,7 @@ input:checked+label {
     justify-content: center;
 }
 
-.img-mascota-enemigo {
+#img-mascota-enemigo {
     transform: scaleX(-1);
 }
 
