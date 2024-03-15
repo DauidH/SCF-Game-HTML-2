@@ -30,6 +30,7 @@ const ronda4 = document.getElementById("ronda-4")
 const ronda5 = document.getElementById("ronda-5")
 
 const parrafoMensajeFinal = document.getElementById("mensaje-final")
+const mensajeFinalInner = document.getElementById("mensaje-final-inner")
 
 const contenedorTarjetas = document.getElementById("contenedor-tarjetas")
 const contenedorAtaques = document.getElementById("contenedor-ataques")
@@ -40,6 +41,8 @@ const botonArriba = document.getElementById("boton-arriba")
 const botonIzquierda = document.getElementById("boton-izquierda")
 const botonAbajo = document.getElementById("boton-abajo")
 const botonDerecha = document.getElementById("boton-derecha")
+
+const imgsAtaques = document.getElementById("imgs-ataques")
 
 let mokepones = []
 
@@ -60,8 +63,12 @@ let inputCatkingo
 let mascotaJugador
 let mascotaJugadorObjeto
 
-let ataquesMokepon
+let mascotaEnemigoObjeto
 
+let ataquesJugadorObjeto
+let ataquesEnemigoObjeto
+
+let ataquesMokepon
 let ataquesMokeponEnemigo
 
 let botonPolvora
@@ -74,6 +81,8 @@ let resultado
 
 let victoriasJugador = 0
 let victoriasEnemigo = 0
+
+let intentos = 3
 
 let lienzo = mapa.getContext("2d")
 
@@ -141,46 +150,46 @@ let catminatorEnemigo = new Mokepon("Catminator", "catminator", "./assets/Person
 let catkingoEnemigo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo-2.0/catkingo-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catkingo-2.0/catkingo-face.png", ((anchoDelMapa * 280) / 570), ((alturaQueBuscamos * 145) / (427.5)))
 
 const GATUNG_FU_ATAQUES = [
-    { nombre: "⚔️ Estocada", id: "boton-filo", poder: "FILO ⚔️"},
-    { nombre: "⚔️ Corte Lateral", id: "boton-filo", poder: "FILO ⚔️"},
-    { nombre: "⚔️ Incisión Profunda", id: "boton-filo", poder: "FILO ⚔️"},
-    { nombre: "💥 Bomba De Humo", id: "boton-polvora", poder: "POLVORA 💥"},
-    { nombre: "💀 Kung Fu Punch!", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "⚔️ Estocada", id: "boton-filo", poder: "FILO ⚔️", img: "./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Corte Lateral", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Incisión Profunda", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Bomba De Humo", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💀 Kung Fu Punch!", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
 ]
 const SHERIFF_CAT_ATAQUES = [ 
-    { nombre: "💥 Tiro Doble", id: "boton-polvora", poder: "POLVORA 💥"},
-    { nombre: "💥 Magnum 500!!", id: "boton-polvora", poder: "POLVORA 💥"},
-    { nombre: "💥 Desenfundada Mortal", id: "boton-polvora", poder: "POLVORA 💥"},
-    { nombre: "⚔️ Escarbadientes Punzante", id: "boton-filo", poder: "FILO ⚔️"},
-    { nombre: "💀 Veneno En El Abrevadero", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "💥 Tiro Doble", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Magnum 500!!", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Desenfundada Mortal", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Escarbadientes Punzante", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💀 Veneno En El Abrevadero", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
 ]
 const CAT_SPARROW_ATAQUES = [
-    { nombre: "💀 Maldición Del Perla Negra", id: "boton-letal", poder: "LETAL 💀"},
-    { nombre: "💀 Rastas Asfixiantes", id: "boton-letal", poder: "LETAL 💀"},
-    { nombre: "💀 Botellazo De Ron", id: "boton-letal", poder: "LETAL 💀"},
-    { nombre: "💥 Bola De Cañón", id: "boton-polvora", poder: "POLVORA 💥"},
-    { nombre: "⚔️ Espadazo Por La Espalda!", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "💀 Maldición Del Perla Negra", id: "boton-letal", poder: "LETAL 💀", img: "./assets/imgs/Ataques/Cat-Sparrow/maldicion-del-perla-negra.png"},
+    { nombre: "💀 Rastas Asfixiantes", id: "boton-letal", poder: "LETAL 💀", img: "./assets/imgs/Ataques/Cat-Sparrow/rastas-asfixiantes.png"},
+    { nombre: "💀 Botellazo De Ron", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Bola De Cañón", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Espadazo Por La Espalda!", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
 ]
 const GATHOFEN_ATAQUES = [
-    { nombre: "💥 Ametralladora", id: "boton-polvora", poder: "POLVORA 💥"},
-    { nombre: "💥 Granada", id: "boton-polvora", poder: "POLVORA 💥"},
-    { nombre: "💀 Gas Venenoso", id: "boton-letal", poder: "LETAL 💀"},
-    { nombre: "💀 Cegadora", id: "boton-letal", poder: "LETAL 💀"},
-    { nombre: "⚔️ Ballonetazo!", id: "boton-filo", poder: "FILO ⚔️"},
+    { nombre: "💥 Ametralladora", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Granada", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💀 Gas Venenoso", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💀 Cegadora", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Ballonetazo!", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
 ]
 const CATMINATOR_ATAQUES = [
-    { nombre: "💥 Hasta La Vista Baby!", id: "boton-polvora", poder: "POLVORA 💥"},
-    { nombre: "💥 Perdigón De Escopeta", id: "boton-polvora", poder: "POLVORA 💥"},
-    { nombre: "⚔️ Laser Cortante", id: "boton-filo", poder: "FILO ⚔️"},
-    { nombre: "⚔️ Cuchillandroide", id: "boton-filo", poder: "FILO ⚔️"},
-    { nombre: "💀 Puño Metálico", id: "boton-letal", poder: "LETAL 💀"},
+    { nombre: "💥 Hasta La Vista Baby!", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Perdigón De Escopeta", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Laser Cortante", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Cuchillandroide", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💀 Puño Metálico", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
 ]
 const CATKINGO_ATAQUES = [
-    { nombre: "⚔️ Corte De Hacha", id: "boton-filo", poder: "FILO ⚔️"},
-    { nombre: "⚔️ Lanza A Distancia", id: "boton-filo", poder: "FILO ⚔️"},
-    { nombre: "💀 Por Asgard !", id: "boton-letal", poder: "LETAL 💀"},
-    { nombre: "💀 Golpe De Escudo", id: "boton-letal", poder: "LETAL 💀"},
-    { nombre: "💥 Flecha Incendiaria", id: "boton-polvora", poder: "POLVORA 💥"},
+    { nombre: "⚔️ Corte De Hacha", id: "boton-filo", poder: "FILO ⚔️", img: "./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Lanza A Distancia", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💀 Por Asgard !", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💀 Golpe De Escudo", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Flecha Incendiaria", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
 ]
 
 gatungFu.ataques.push(...GATUNG_FU_ATAQUES)// para que no se pase en forma de lista sino los valores de los ataques como tal, se coloca los 3 ... iniciales.
@@ -227,7 +236,6 @@ function iniciarJuego() {
     })
 
     botonMascotaJugador.addEventListener("click", seleccionarMascotaJugador)
-    botonReiniciar.addEventListener("click", reiniciarJuego)
 }
 
 function aleatorio(min, max) {
@@ -310,6 +318,12 @@ function secuenciaAtaque() {
         boton.addEventListener("click", (e) => {
             ataqueJugadorNombre = e.target.textContent
             ataquesJugadorNombres.push(ataqueJugadorNombre)
+
+            let buscarAtaquesJugadorObjeto = mascotaJugadorObjeto.ataques.find(function(ataque) {
+                return ataque.nombre === ataqueJugadorNombre
+            })            
+            ataquesJugadorObjeto = buscarAtaquesJugadorObjeto
+
             if (e.target.textContent.includes("💥")) {
                 ataqueJugador.push("POLVORA 💥")
                 boton.style.background = "#112f58"
@@ -325,9 +339,37 @@ function secuenciaAtaque() {
             }
             ronda++
             ataqueAleatorioEnemigo()
+            generarImgsAtaques()
             historial.style.display = "table"
         })  
     })
+}
+
+function generarImgsAtaques() {
+    imgsAtaques.innerHTML = ""
+    imgsAtaques.style.opacity = "0.95"
+    imgsAtaques.style.visibility = "visible"
+    setTimeout(function() {
+        imgsAtaques.style.opacity = "0"
+    }, 1000)
+    // setTimeout(function() {
+    //     imgsAtaques.style.visibility = "hidden"
+    // }, 1000)
+
+    nuevaImgAtaque = document.createElement("img")
+    nuevaImgAtaque.setAttribute("class", "img-ataque")
+    nuevaImgAtaque.src = ataquesJugadorObjeto.img
+    imgsAtaques.appendChild(nuevaImgAtaque)
+
+    nuevaImgAtaqueVs = document.createElement("img")
+    nuevaImgAtaqueVs.setAttribute("class", "img-ataque-vs")
+    nuevaImgAtaqueVs.src = "./assets/imgs/VS/vsGif.gif"
+    imgsAtaques.appendChild(nuevaImgAtaqueVs)
+
+    nuevaImgAtaqueEnemigo = document.createElement("img")
+    nuevaImgAtaqueEnemigo.setAttribute("class", "img-ataque")
+    nuevaImgAtaqueEnemigo.src = ataquesEnemigoObjeto.img
+    imgsAtaques.appendChild(nuevaImgAtaqueEnemigo)
 }
 
 function desaparecerPersonajes(mascotaSeleccionada) {
@@ -385,6 +427,7 @@ function ataqueAleatorioEnemigo() {
     ataqueEnemigo.push(poderEscogido)
     poderEscogidoNombre = ataquesMokeponEnemigo[ataqueAleatorio].nombre
     ataquesEnemigoNombres.push(poderEscogidoNombre)
+    ataquesEnemigoObjeto = ataquesMokeponEnemigo[ataqueAleatorio]
 
     numerosAtaqueEnemigo.push(ataqueAleatorio)
     combate()
@@ -432,13 +475,21 @@ revisarVidas()
 }
 
 function revisarVidas() {
+    const mensajeIntentos = () => {
+        switch (intentos) {
+            case 2: return ", tienes 2 intentos más."
+            case 1: return ", tienes 1 intento más."
+            default: return ""
+        }
+    }
     if (ronda == 5) {
         if (victoriasJugador === victoriasEnemigo) {
-            crearMensajeFinal("¡Ha sido Empate!")
+            crearMensajeFinal(`¡Ha sido Empate!`)
         } else if (victoriasJugador > victoriasEnemigo) {
             crearMensajeFinal("¡Felicidades! ¡Has ganado!")
         } else if (victoriasJugador < victoriasEnemigo) {
-            crearMensajeFinal("¡Has perdido el duelo!")
+            intentos--
+            crearMensajeFinal(`¡Has perdido el duelo!${mensajeIntentos()}`)
         }
     }
 }
@@ -486,14 +537,67 @@ function crearMensaje(resultado) {
 }
 
 function crearMensajeFinal(resultadoFinal) {
-    let parrafo = document.createElement("p")
-    parrafo.innerHTML = resultadoFinal
-    parrafoMensajeFinal.appendChild(parrafo)
+    mensajeFinalInner.innerHTML = resultadoFinal
+
     sectionReiniciar.style.display = "flex"
+    if (intentos !== 0 && resultadoFinal.includes("ganado")){
+        funcionBotonReiniciar("Siguiente")
+    } else if (intentos !== 0){
+        funcionBotonReiniciar("Reintentar")
+    } else {
+        funcionBotonReiniciar("Reiniciar")
+    }
 }
 
-function reiniciarJuego() {
-    location.reload()
+function funcionBotonReiniciar (botonResultado) {
+    botonReiniciar.removeEventListener("click", siguiente)
+    botonReiniciar.removeEventListener("click", reintentar)
+    botonReiniciar.removeEventListener("click", reiniciar)
+
+    botonReiniciar.innerHTML = botonResultado
+    if (botonResultado === "Siguiente") {
+        botonReiniciar.addEventListener("click", siguiente)
+    } else if (botonResultado === "Reintentar") {
+        botonReiniciar.addEventListener("click", reintentar)
+    } else if (botonResultado === "Reiniciar") {
+        botonReiniciar.addEventListener("click", reiniciar)
+    }
+}
+
+function siguiente() {
+    console.log("xd")
+}
+
+function reintentar() {
+    spanCorazonesEnemigo.innerHTML = ""
+    spanCorazonesJugador.innerHTML = ""
+    spanVidasEnemigo.innerHTML = 0
+    spanVidasJugador.innerHTML = 0
+    victoriasEnemigo = 0
+    victoriasJugador = 0
+    sectionReiniciar.style.display = "none"
+    ataquesJugadorNombres = []
+    ataqueJugador = []
+    botones.forEach((boton) => {
+        boton.style.background = "rgba(66, 62, 39, 0.9)"
+        boton.disabled = false
+    })
+    ronda = 0
+
+    sectionMessages.style.display = "none"
+    numerosAtaqueEnemigo = []
+    ataqueEnemigo = []
+    ataquesEnemigoNombres = []
+    mensajeFinalInner.innerHTML = ""
+    ronda1.innerHTML = ""
+    ronda2.innerHTML = ""
+    ronda3.innerHTML = ""
+    ronda4.innerHTML = ""
+    ronda5.innerHTML = ""
+}
+
+function reiniciar() {
+    return location.reload()
 }
 
 function pintarCanvas() {
@@ -624,6 +728,7 @@ function revisarColision(enemigo) {
     clearInterval(intervalo)
     sectionSeleccionarAtaque.style.display = "flex"
     sectionVerMapa.style.display = "none"
+    mascotaEnemigoObjeto = enemigo
     seleccionarMascotaEnemigo(enemigo)
 }
 

@@ -334,6 +334,24 @@ input:checked+label {
     margin: 0px;
 }
 
+#imgs-ataques {
+    display: flex;
+    scale: 20%;
+    position: absolute;
+    top: -3em;
+    z-index: 19;
+    background-color: rgb(58 58 58 / 100%);
+    flex-direction: row;
+    justify-content: center;
+    padding: 122px;
+    border-radius: 287px;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.ataques-invisibles {
+    opacity: 0
+}
+
 /* COMPATIBILIDAD CELULAR */
 
 @media (max-width: 1060px) {
