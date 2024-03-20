@@ -251,37 +251,31 @@ function aleatorio(min, max) {
 
 function seleccionarMascotaJugador() {
     if (inputGatungFu.checked) {
-        alert("Seleccionaste a " + gatungFu.nombre)
         spanMascotaJugador.innerHTML = gatungFu.nombre
         desaparecerPersonajes(gatungFu)
         mascotaJugador = gatungFu.nombre
     }
     else if (inputSheriffCat.checked) {
-        alert("Seleccionaste a " + sheriffCat.nombre)
         spanMascotaJugador.innerHTML = sheriffCat.nombre
         desaparecerPersonajes(sheriffCat)
         mascotaJugador = sheriffCat.nombre
     }
     else if (inputCatSparrow.checked) {
-        alert("Seleccionaste a " + catSparrow.nombre)
         spanMascotaJugador.innerHTML = catSparrow.nombre
         desaparecerPersonajes(catSparrow)
         mascotaJugador = catSparrow.nombre
     }
     else if (inputGathofen.checked) {
-        alert("Seleccionaste a " + gathofen.nombre)
         spanMascotaJugador.innerHTML = gathofen.nombre
         desaparecerPersonajes(gathofen)
         mascotaJugador = gathofen.nombre
     }
     else if (inputCatminator.checked) {
-        alert("Seleccionaste a " + catminator.nombre)
         spanMascotaJugador.innerHTML = catminator.nombre
         desaparecerPersonajes(catminator)
         mascotaJugador = catminator.nombre
     }
     else if (inputCatkingo.checked) {
-        alert("Seleccionaste a " + catkingo.nombre)
         spanMascotaJugador.innerHTML = catkingo.nombre
         desaparecerPersonajes(catkingo)
         mascotaJugador = catkingo.nombre
@@ -602,6 +596,8 @@ function siguiente() {
         alert("¡HAS LOGRADO SER EL LUCHADOR SUPREMO! ¡FELICIDADES, HAS TERMINADO EL JUEGO!")
         sectionVerMapa.style.display = "none"
         sectionGraciasFinales.style.display = "block"
+        let imgJerarquia = document.querySelector('.jerarquia')
+        imgJerarquia.style.display = 'none'
         graciasFinales()        
     }
 }
