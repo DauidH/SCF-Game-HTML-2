@@ -44,6 +44,9 @@ const botonDerecha = document.getElementById("boton-derecha")
 
 const imgsAtaques = document.getElementById("imgs-ataques")
 
+const sectionGraciasFinales = document.getElementById("gracias-finales")
+const imagenesGraciasFinales = document.getElementById("imagenes-gracias-finales")
+
 let mokepones = []
 
 let ataqueJugador = []
@@ -110,7 +113,7 @@ ataquesEnemigoNombres = []
 let enemigosDerrotados = 0
 
 class Mokepon {
-    constructor(nombre, id, foto, vida, fotoMapa, x = ((anchoDelMapa * 245) / 570), y = ((alturaQueBuscamos * 235) / 427.5)) {
+    constructor(nombre, id, foto, vida, fotoMapa, elemento, x = ((anchoDelMapa * 245) / 570), y = ((alturaQueBuscamos * 235) / 427.5)) {
         this.nombre = nombre
         this.id = id
         this.foto = foto
@@ -124,6 +127,7 @@ class Mokepon {
         this.mapaFoto.src = fotoMapa
         this.velocidadX = 0
         this.velocidadY = 0
+        this.elemento = elemento
     }
 
     pintarMokepon() {
@@ -137,54 +141,54 @@ class Mokepon {
     }
 }
 
-let gatungFu = new Mokepon("Gatung Fu", "gatung-fu", "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-blank-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-face-arma.png")
-let sheriffCat = new Mokepon("Sheriff Cat", "sheriff-cat", "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-blank-animated-unscreen.gif", 5, "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-face.png")
-let catSparrow = new Mokepon("Cat Sparrow", "cat-sparrow", "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-face.png")
-let gathofen = new Mokepon("Gathofen", "gathofen", "./assets/Personajes/Gathofen/gathofen-animated-unscreen.gif", 5, "./assets/Personajes/Gathofen/gathofen-face-arma.png")
-let catminator = new Mokepon("Catminator", "catminator", "./assets/Personajes/Catminator/catminator-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catminator/catminator-face.png")
-let catkingo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo-2.0/catkingo-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catkingo-2.0/catkingo-face.png")
+let gatungFu = new Mokepon("Gatung Fu", "gatung-fu", "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-blank-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-face-arma.png", "⚔️")
+let sheriffCat = new Mokepon("Sheriff Cat", "sheriff-cat", "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-blank-animated-unscreen.gif", 5, "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-face.png", "💥")
+let catSparrow = new Mokepon("Cat Sparrow", "cat-sparrow", "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-face.png", "💀")
+let gathofen = new Mokepon("Gathofen", "gathofen", "./assets/Personajes/Gathofen/gathofen-animated-unscreen.gif", 5, "./assets/Personajes/Gathofen/gathofen-face-arma.png", "💥💀")
+let catminator = new Mokepon("Catminator", "catminator", "./assets/Personajes/Catminator/catminator-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catminator/catminator-face.png", "💥⚔️")
+let catkingo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo-2.0/catkingo-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catkingo-2.0/catkingo-face.png", "⚔️💀")
 
-let gatungFuEnemigo = new Mokepon("Gatung Fu", "gatung-fu", "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-blank-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-face-arma.png", ((anchoDelMapa * 390) / 570), ((alturaQueBuscamos * 35) / (427.5)))
-let sheriffCatEnemigo = new Mokepon("Sheriff Cat", "sheriff-cat", "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-blank-animated-unscreen.gif", 5, "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-face.png", ((anchoDelMapa * 85) / 570), ((alturaQueBuscamos * 25) / (427.5)))
-let catSparrowEnemigo = new Mokepon("Cat Sparrow", "cat-sparrow", "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-face.png", ((anchoDelMapa * 390) / 570), ((alturaQueBuscamos * 310) / (427.5)))
-let gathofenEnemigo = new Mokepon("Gathofen", "gathofen", "./assets/Personajes/Gathofen/gathofen-animated-unscreen.gif", 5, "./assets/Personajes/Gathofen/gathofen-face-arma.png", ((anchoDelMapa * 465) / 570), ((alturaQueBuscamos * 165) / (427.5)))
-let catminatorEnemigo = new Mokepon("Catminator", "catminator", "./assets/Personajes/Catminator/catminator-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catminator/catminator-face.png", ((anchoDelMapa * 75) / 570), ((alturaQueBuscamos * 280) / (427.5)))
-let catkingoEnemigo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo-2.0/catkingo-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catkingo-2.0/catkingo-face.png", ((anchoDelMapa * 280) / 570), ((alturaQueBuscamos * 145) / (427.5)))
+let gatungFuEnemigo = new Mokepon("Gatung Fu", "gatung-fu", "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-blank-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Gatung-Fu-2.0/gatung-fu-face-arma.png", "⚔️", ((anchoDelMapa * 390) / 570), ((alturaQueBuscamos * 35) / (427.5)))
+let sheriffCatEnemigo = new Mokepon("Sheriff Cat", "sheriff-cat", "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-blank-animated-unscreen.gif", 5, "./assets/Personajes/Sheriff-Cat-2.0/sheriff-cat-face.png", "💥", ((anchoDelMapa * 85) / 570), ((alturaQueBuscamos * 25) / (427.5)))
+let catSparrowEnemigo = new Mokepon("Cat Sparrow", "cat-sparrow", "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Cat-Sparrow-2.0/cat-sparrow-face.png", "💀", ((anchoDelMapa * 390) / 570), ((alturaQueBuscamos * 310) / (427.5)))
+let gathofenEnemigo = new Mokepon("Gathofen", "gathofen", "./assets/Personajes/Gathofen/gathofen-animated-unscreen.gif", 5, "./assets/Personajes/Gathofen/gathofen-face-arma.png", "💥💀", ((anchoDelMapa * 465) / 570), ((alturaQueBuscamos * 165) / (427.5)))
+let catminatorEnemigo = new Mokepon("Catminator", "catminator", "./assets/Personajes/Catminator/catminator-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catminator/catminator-face.png", "💥⚔️", ((anchoDelMapa * 75) / 570), ((alturaQueBuscamos * 280) / (427.5)))
+let catkingoEnemigo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo-2.0/catkingo-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catkingo-2.0/catkingo-face.png", "⚔️💀", ((anchoDelMapa * 280) / 570), ((alturaQueBuscamos * 145) / (427.5)))
 
 const GATUNG_FU_ATAQUES = [
-    { nombre: "⚔️ Estocada", id: "boton-filo", poder: "FILO ⚔️", img: "./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "⚔️ Corte Lateral", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "⚔️ Incisión Profunda", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💥 Bomba De Humo", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💀 Kung Fu Punch!", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Estocada", id: "boton-filo", poder: "FILO ⚔️", img: "./assets/imgs/Ataques/gatung-fu/estocada.png"},
+    { nombre: "⚔️ Corte Lateral", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/gatung-fu/corte-lateral.png"},
+    { nombre: "⚔️ Incisión Profunda", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/gatung-fu/incision-profunda.png"},
+    { nombre: "💥 Bomba De Humo", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/gatung-fu/bomba-de-humo.png"},
+    { nombre: "💀 Kung Fu Punch!", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/gatung-fu/kung-fu-punch.png"},
 ]
 const SHERIFF_CAT_ATAQUES = [ 
-    { nombre: "💥 Tiro Doble", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💥 Magnum 500!!", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💥 Desenfundada Mortal", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "⚔️ Escarbadientes Punzante", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💀 Veneno En El Abrevadero", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Tiro Doble", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/sheriff-cat/tiro-doble.png"},
+    { nombre: "💥 Magnum 500!!", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/sheriff-cat/magnum-500.png"},
+    { nombre: "💥 Desenfundada Mortal", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/sheriff-cat/desenfundada-mortal.png"},
+    { nombre: "⚔️ Escarbadientes Punzante", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/sheriff-cat/escarbadientes-punzante.png"},
+    { nombre: "💀 Veneno En El Abrevadero", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/sheriff-cat/veneno-en-el-abrevadero.png"},
 ]
 const CAT_SPARROW_ATAQUES = [
     { nombre: "💀 Maldición Del Perla Negra", id: "boton-letal", poder: "LETAL 💀", img: "./assets/imgs/Ataques/Cat-Sparrow/maldicion-del-perla-negra.png"},
     { nombre: "💀 Rastas Asfixiantes", id: "boton-letal", poder: "LETAL 💀", img: "./assets/imgs/Ataques/Cat-Sparrow/rastas-asfixiantes.png"},
-    { nombre: "💀 Botellazo De Ron", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💥 Bola De Cañón", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "⚔️ Espadazo Por La Espalda!", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💀 Botellazo De Ron", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Cat-Sparrow/Botellazo-de-Ron.png"},
+    { nombre: "💥 Bola De Cañón", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Cat-Sparrow/bola-de-canon.png"},
+    { nombre: "⚔️ Espadazo Por La Espalda!", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Cat-Sparrow/espadazo-por-la-espalda.png"},
 ]
 const GATHOFEN_ATAQUES = [
-    { nombre: "💥 Ametralladora", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💥 Granada", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💀 Gas Venenoso", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💀 Cegadora", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "⚔️ Ballonetazo!", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Ametralladora", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/gathofen/ametralladora.png"},
+    { nombre: "💥 Granada", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/gathofen/granada.png"},
+    { nombre: "💀 Gas Venenoso", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/gathofen/gas-venenoso.png"},
+    { nombre: "💀 Cegadora", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/gathofen/cegadora.png"},
+    { nombre: "⚔️ Ballonetazo!", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/gathofen/ballonetazo.png"},
 ]
 const CATMINATOR_ATAQUES = [
-    { nombre: "💥 Hasta La Vista Baby!", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💥 Perdigón De Escopeta", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "⚔️ Laser Cortante", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "⚔️ Cuchillandroide", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💀 Puño Metálico", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "💥 Hasta La Vista Baby!", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/catminator/hasta-la-vista-baby.png"},
+    { nombre: "💥 Perdigón De Escopeta", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/catminator/perdigon-de-escopeta.png"},
+    { nombre: "⚔️ Laser Cortante", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/catminator/laser-cortante.png"},
+    { nombre: "⚔️ Cuchillandroide", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/catminator/cuchillandroide.png"},
+    { nombre: "💀 Puño Metálico", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/catminator/puno-metalico.png"},
 ]
 const CATKINGO_ATAQUES = [
     { nombre: "⚔️ Corte De Hacha", id: "boton-filo", poder: "FILO ⚔️", img: "./assets/imgs/Ataques/Sin-titulo-1.png"},
@@ -211,6 +215,7 @@ catkingoEnemigo.ataques.push(...CATKINGO_ATAQUES)
 mokepones.push(gatungFu, sheriffCat, catSparrow, gathofen, catminator, catkingo)
 
 function iniciarJuego() {
+    sectionGraciasFinales.style.display = "none"
     sectionSeleccionarAtaque.style.display = "none"
     sectionReiniciar.style.display = "none"
     sectionMessages.style.display = "none"
@@ -222,7 +227,7 @@ function iniciarJuego() {
         <div id="tarjeta-${mokepon.id}">
             <input type="radio" name="mascota" id=${mokepon.id} />
             <label class="tarjeta-de-mokepon" for=${mokepon.id}>
-                <P style="margin: 0px";>${mokepon.nombre}</P>
+                <P style="margin: 0px";>${mokepon.nombre+mokepon.elemento}</P>
                 <img src=${mokepon.foto} alt=${mokepon.nombre}>
             </label>
         </div>
@@ -248,37 +253,37 @@ function seleccionarMascotaJugador() {
     if (inputGatungFu.checked) {
         alert("Seleccionaste a " + gatungFu.nombre)
         spanMascotaJugador.innerHTML = gatungFu.nombre
-        desaparecerPersonajes(gatungFu.nombre)
+        desaparecerPersonajes(gatungFu)
         mascotaJugador = gatungFu.nombre
     }
     else if (inputSheriffCat.checked) {
         alert("Seleccionaste a " + sheriffCat.nombre)
         spanMascotaJugador.innerHTML = sheriffCat.nombre
-        desaparecerPersonajes(sheriffCat.nombre)
+        desaparecerPersonajes(sheriffCat)
         mascotaJugador = sheriffCat.nombre
     }
     else if (inputCatSparrow.checked) {
         alert("Seleccionaste a " + catSparrow.nombre)
         spanMascotaJugador.innerHTML = catSparrow.nombre
-        desaparecerPersonajes(catSparrow.nombre)
+        desaparecerPersonajes(catSparrow)
         mascotaJugador = catSparrow.nombre
     }
     else if (inputGathofen.checked) {
         alert("Seleccionaste a " + gathofen.nombre)
         spanMascotaJugador.innerHTML = gathofen.nombre
-        desaparecerPersonajes(gathofen.nombre)
+        desaparecerPersonajes(gathofen)
         mascotaJugador = gathofen.nombre
     }
     else if (inputCatminator.checked) {
         alert("Seleccionaste a " + catminator.nombre)
         spanMascotaJugador.innerHTML = catminator.nombre
-        desaparecerPersonajes(catminator.nombre)
+        desaparecerPersonajes(catminator)
         mascotaJugador = catminator.nombre
     }
     else if (inputCatkingo.checked) {
         alert("Seleccionaste a " + catkingo.nombre)
         spanMascotaJugador.innerHTML = catkingo.nombre
-        desaparecerPersonajes(catkingo.nombre)
+        desaparecerPersonajes(catkingo)
         mascotaJugador = catkingo.nombre
     }
     else {
@@ -353,7 +358,7 @@ function generarImgsAtaques() {
     imgsAtaques.style.visibility = "visible"
     setTimeout(function() {
         imgsAtaques.style.opacity = "0"
-    }, 1000)
+    }, 2000)
     // setTimeout(function() {
     //     imgsAtaques.style.visibility = "hidden"
     // }, 1000)
@@ -380,21 +385,21 @@ function desaparecerPersonajes(mascotaSeleccionada) {
     sectionVerMapa.style.display = "flex"
 
     nuevoPersonajesCombate = document.createElement("p")
-    nuevoPersonajesCombate.innerHTML = mascotaSeleccionada
+    nuevoPersonajesCombate.innerHTML = mascotaSeleccionada.nombre + mascotaSeleccionada.elemento
     personajesCombate.appendChild(nuevoPersonajesCombate)
 
     nuevoPersonajesCombateImg = document.createElement("img")
-    if (mascotaSeleccionada == gatungFu.nombre) {
+    if (mascotaSeleccionada.nombre == gatungFu.nombre) {
         nuevoPersonajesCombateImg.src = gatungFu.foto
-    } else if (mascotaSeleccionada == sheriffCat.nombre) {
+    } else if (mascotaSeleccionada.nombre == sheriffCat.nombre) {
         nuevoPersonajesCombateImg.src = sheriffCat.foto
-    } else if (mascotaSeleccionada == catSparrow.nombre) {
+    } else if (mascotaSeleccionada.nombre == catSparrow.nombre) {
         nuevoPersonajesCombateImg.src = catSparrow.foto
-    } else if (mascotaSeleccionada == gathofen.nombre) {
+    } else if (mascotaSeleccionada.nombre == gathofen.nombre) {
         nuevoPersonajesCombateImg.src = gathofen.foto
-    } else if (mascotaSeleccionada == catminator.nombre) {
+    } else if (mascotaSeleccionada.nombre == catminator.nombre) {
         nuevoPersonajesCombateImg.src = catminator.foto
-    } else if (mascotaSeleccionada == catkingo.nombre) {
+    } else if (mascotaSeleccionada.nombre == catkingo.nombre) {
         nuevoPersonajesCombateImg.src = catkingo.foto
     }
     personajesCombateImg.appendChild(nuevoPersonajesCombateImg)
@@ -403,12 +408,12 @@ function desaparecerPersonajes(mascotaSeleccionada) {
 function seleccionarMascotaEnemigo(enemigo) {
     nuevoPersonajesCombate = document.createElement("p")
     nuevoPersonajesCombate.id = "texto-nombre-enemigo"
-    nuevoPersonajesCombate.innerHTML = enemigo.nombre
+    nuevoPersonajesCombate.innerHTML = enemigo.nombre + enemigo.elemento
     if (enemigosDerrotados === 0) {
         personajesCombate.appendChild(nuevoPersonajesCombate)
     } else if (enemigosDerrotados !== 0) {  
         textoNombreEnemigo = document.getElementById("texto-nombre-enemigo")
-        textoNombreEnemigo.innerHTML = enemigo.nombre
+        textoNombreEnemigo.innerHTML = enemigo.nombre + enemigo.elemento
     }
 
     spanMascotaEnemigo.innerHTML = enemigo.nombre
@@ -593,7 +598,12 @@ function siguiente() {
     }
     iniciarMapa()
     reintentar()
-    if (enemigosDerrotados === 6){alert("¡HAS LOGRADO SER EL LUCHADOR SUPREMO! ¡FELICIDADES, HAS TERMINADO EL JUEGO!")}
+    if (enemigosDerrotados === 6) {
+        alert("¡HAS LOGRADO SER EL LUCHADOR SUPREMO! ¡FELICIDADES, HAS TERMINADO EL JUEGO!")
+        sectionVerMapa.style.display = "none"
+        sectionGraciasFinales.style.display = "block"
+        graciasFinales()        
+    }
 }
 
 function reintentar() {
@@ -762,6 +772,43 @@ function revisarColision(enemigo) {
     } else {
         return
     }
+}
+
+function graciasFinales() {
+    let textoGraciasFinales = document.createElement("p")
+    textoGraciasFinales.id = "texto-gracias-finales"
+    textoGraciasFinales.innerHTML = '¡Gracias por visitar este proyecto! <br>puedes observar el repositorio <a href="https://github.com/DauidH/DauidH.github.io">aquí</a>.'
+    sectionGraciasFinales.appendChild(textoGraciasFinales)
+
+    let crearImagenNieve = document.createElement("img")
+    crearImagenNieve.setAttribute("class", "nieve")
+    crearImagenNieve.src = "./assets/imgs/Gracias-finales/nieve.gif"
+    imagenesGraciasFinales.appendChild(crearImagenNieve)
+
+    let crearImagenFireworks1 = document.createElement("img")
+    crearImagenFireworks1.setAttribute("class", "fireworks-1")
+    crearImagenFireworks1.src = "./assets/imgs/Gracias-finales/fireworks-1.gif"
+    imagenesGraciasFinales.appendChild(crearImagenFireworks1)
+
+    let crearImagenFireworks2 = document.createElement("img")
+    crearImagenFireworks2.setAttribute("class", "fireworks-2")
+    crearImagenFireworks2.src = "./assets/imgs/Gracias-finales/fireworks-2.gif"
+    imagenesGraciasFinales.appendChild(crearImagenFireworks2)
+
+    let crearImagenFireworks3 = document.createElement("img")
+    crearImagenFireworks3.setAttribute("class", "fireworks-3")
+    crearImagenFireworks3.src = "./assets/imgs/Gracias-finales/fireworks-3.gif"
+    imagenesGraciasFinales.appendChild(crearImagenFireworks3)
+
+    let crearImagenKingCat = document.createElement("img")
+    crearImagenKingCat.setAttribute("class", "king-cat")
+    crearImagenKingCat.src = "./assets/imgs/Gracias-finales/king-cat.gif"
+    imagenesGraciasFinales.appendChild(crearImagenKingCat)
+
+    let crearImagenConfettiCat = document.createElement("img")
+    crearImagenConfettiCat.setAttribute("class", "confetti-cat")
+    crearImagenConfettiCat.src = "./assets/imgs/Gracias-finales/confetti-cat.gif"
+    imagenesGraciasFinales.appendChild(crearImagenConfettiCat)
 }
 
 window.addEventListener("load", iniciarJuego)

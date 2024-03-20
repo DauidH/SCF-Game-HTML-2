@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sahitya:wght@400;700&display=swap');
 
 body {
     font-family: 'Cinzel', serif;
@@ -28,6 +29,13 @@ body {
 
 .titulo img {
     width: 295px;
+}
+
+.jerarquia img {
+    top: 7vw;
+    left: 67vw;
+    width: 7em;
+    position: absolute;
 }
 
 .subtitulo {
@@ -110,9 +118,11 @@ input:hover+label {
     background: linear-gradient(0deg,rgba(143, 1, 1, 0.531),#ffffff00);
     color: #ffffff;
     font-size: larger;
+    white-space: nowrap;
 }
 
 input:checked+label {
+    white-space: nowrap;
     background: linear-gradient(0deg,rgb(0, 0, 0),rgba(143, 1, 1, 0.531));
     color: #ffffff;
     box-shadow: 0px 0px 20px 0px #ffffff;
@@ -231,6 +241,7 @@ input:checked+label {
 }
 
 .combate {
+    white-space: nowrap;
     width: 700px;
     font-family: 'Cinzel', sans-serif;
     color: white;
@@ -301,7 +312,7 @@ input:checked+label {
 .img-historial {
     scale: 10%;
     position: absolute;
-    top: 33em;
+    top: 35em;
     background-color: rgb(22 69 101 / 79%);
     border-radius: 100%;
     border: 15px solid rgba(1, 165, 252, 0.9);
@@ -350,6 +361,86 @@ input:checked+label {
 
 .ataques-invisibles {
     opacity: 0
+}
+
+#texto-gracias-finales {
+    width: 60vw;
+    z-index: 5;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    font-family: "Sahitya", serif;
+    font-weight: 1000;
+    font-style: normal;
+    background: radial-gradient(#eadbc8, rgb(234 202 142));
+    -webkit-text-fill-color: transparent;
+    font-size: 60px;
+    text-align: center;
+    background-clip: text;
+    -webkit-text-stroke-width: 0.2vw;
+    -webkit-text-stroke-color: black;
+}
+
+.nieve {
+    opacity: 0.5;
+    z-index: -1;
+    height: 135%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fireworks-1 {
+    opacity: 0.5;
+    z-index: 1;
+    width: 25%;
+    position: absolute;
+    top: 40%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+.fireworks-2 {
+    opacity: 0.5;
+    z-index: 1;
+    width: 25%;
+    position: absolute;
+    top: 82%;
+    left: 86%;
+    transform: translate(-50%, -50%);
+}
+
+.fireworks-3 {
+    opacity: 0.6;
+    z-index: 1;
+    width: 17%;
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%, -50%);
+}
+
+.king-cat {
+    z-index: 2;
+    width: 13%;
+    position: absolute;
+    top: 83%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+}
+
+.confetti-cat {
+    z-index: 2;
+    width: 10%;
+    position: absolute;
+    top: 89%;
+    left: 55%;
+    transform: translate(-50%, -50%);
 }
 
 /* COMPATIBILIDAD CELULAR */
