@@ -191,11 +191,11 @@ const CATMINATOR_ATAQUES = [
     { nombre: "💀 Puño Metálico", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/catminator/puno-metalico.png"},
 ]
 const CATKINGO_ATAQUES = [
-    { nombre: "⚔️ Corte De Hacha", id: "boton-filo", poder: "FILO ⚔️", img: "./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "⚔️ Lanza A Distancia", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💀 Por Asgard !", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💀 Golpe De Escudo", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
-    { nombre: "💥 Flecha Incendiaria", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Sin-titulo-1.png"},
+    { nombre: "⚔️ Corte De Hacha", id: "boton-filo", poder: "FILO ⚔️", img: "./assets/imgs/Ataques/catkingo/corte-de-hacha.png"},
+    { nombre: "⚔️ Lanza A Distancia", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/catkingo/lanza-a-distancia.png"},
+    { nombre: "💀 Por Asgard !", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/catkingo/por-asgard.png"},
+    { nombre: "💀 Golpe De Escudo", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/catkingo/golpe-de-escudo.png"},
+    { nombre: "💥 Flecha Incendiaria", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/catkingo/flecha-incendiaria.png"},
 ]
 
 gatungFu.ataques.push(...GATUNG_FU_ATAQUES)// para que no se pase en forma de lista sino los valores de los ataques como tal, se coloca los 3 ... iniciales.
@@ -777,7 +777,7 @@ function revisarColision(enemigo) {
 function graciasFinales() {
     let textoGraciasFinales = document.createElement("p")
     textoGraciasFinales.id = "texto-gracias-finales"
-    textoGraciasFinales.innerHTML = '¡Gracias por visitar este proyecto! <br>puedes observar el repositorio <a href="https://github.com/DauidH/DauidH.github.io">aquí</a>.'
+    textoGraciasFinales.innerHTML = '¡Gracias por jugar! <br>puedes visitar el repositorio <a href="https://github.com/DauidH/DauidH.github.io">aquí</a>.'
     sectionGraciasFinales.appendChild(textoGraciasFinales)
 
     let crearImagenNieve = document.createElement("img")
