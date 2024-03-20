@@ -156,11 +156,11 @@ let catminatorEnemigo = new Mokepon("Catminator", "catminator", "./assets/Person
 let catkingoEnemigo = new Mokepon("Catkingo", "catkingo", "./assets/Personajes/Catkingo-2.0/catkingo-animated-unscreen-mirror.gif", 5, "./assets/Personajes/Catkingo-2.0/catkingo-face.png", "⚔️💀", ((anchoDelMapa * 280) / 570), ((alturaQueBuscamos * 145) / (427.5)))
 
 const GATUNG_FU_ATAQUES = [
-    { nombre: "⚔️ Estocada", id: "boton-filo", poder: "FILO ⚔️", img: "./assets/imgs/Ataques/gatung-fu/estocada.png"},
-    { nombre: "⚔️ Corte Lateral", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/gatung-fu/corte-lateral.png"},
-    { nombre: "⚔️ Incisión Profunda", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/gatung-fu/incision-profunda.png"},
-    { nombre: "💥 Bomba De Humo", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/gatung-fu/bomba-de-humo.png"},
-    { nombre: "💀 Kung Fu Punch!", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/gatung-fu/kung-fu-punch.png"},
+    { nombre: "⚔️ Estocada", id: "boton-filo", poder: "FILO ⚔️", img: "./assets/imgs/Ataques/Gatung-Fu/estocada.png"},
+    { nombre: "⚔️ Corte Lateral", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Gatung-Fu/corte-lateral.png"},
+    { nombre: "⚔️ Incisión Profunda", id: "boton-filo", poder: "FILO ⚔️", img:"./assets/imgs/Ataques/Gatung-Fu/incision-profunda.png"},
+    { nombre: "💥 Bomba De Humo", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/Gatung-Fu/bomba-de-humo.png"},
+    { nombre: "💀 Kung Fu Punch!", id: "boton-letal", poder: "LETAL 💀", img:"./assets/imgs/Ataques/Gatung-Fu/kung-fu-punch.png"},
 ]
 const SHERIFF_CAT_ATAQUES = [ 
     { nombre: "💥 Tiro Doble", id: "boton-polvora", poder: "POLVORA 💥", img:"./assets/imgs/Ataques/sheriff-cat/tiro-doble.png"},
